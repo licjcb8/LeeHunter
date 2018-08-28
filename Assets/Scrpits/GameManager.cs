@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour {
     public Player m_cPlayer;
     static GameManager m_cInstance;
+    public ItemManager m_cItemManager;
+    public GUIManager.eSceneStatus m_eSceneStatus;
     static public GameManager GetInstance()
     {
         return m_cInstance;

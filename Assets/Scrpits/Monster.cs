@@ -4,12 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class Monster : MonoBehaviour {
+    public ItemBox itembox;
+    public GameObject IngredientPrefab;
+    public bool isDie = false;
     public enum State { Idle, Chasing, Attacking };
     State currentState;
 
+    public Transform DeathPos;
+    public Transform RespawnPos;
 
     public float hp = 100;
+    public float hpmax = 100;
     public float atk = 30;
+    public int exp = 50;
+
+
     public GameObject Bone;
     NavMeshAgent pathfinder;
     Transform target;
@@ -24,6 +33,11 @@ public class Monster : MonoBehaviour {
     float nextAttackTime;
     float myCollisionRadius=0;
     float targetCollisionRadius=0;
+
+    public float accumulator = 0.0f;
+    
+    public float Respawn = 3.0f;
+    public int RespawnDone = 0;
 
     void Start()
     {
@@ -51,15 +65,43 @@ public class Monster : MonoBehaviour {
             }
 
         }
+        if (RespawnDone == 1)
+        {
+            accumulator += Time.deltaTime;
+        }
+        if (accumulator >= Respawn)
+        {
+            transform.position = RespawnPos.transform.position;
+            RespawnDone = 0;
+            accumulator = 0.0f;
+            GetComponent<NavMeshAgent>().enabled = true;
+            pathfinder.enabled = true;
+
+        }
+        if (hp <= 0)
+        {
+            isDie = true;
+            itembox.GiveItem(GameManager.GetInstance().m_cPlayer);
+            if (itembox.Drop)
+            {
+                Instantiate(IngredientPrefab);
+            }
+        }
         Dead();
     }
 
     void Dead()
     {
-        if (hp <= 0)
+        if (isDie)
         {
-            Destroy(gameObject);
-            Instantiate(Bone, gameObject.transform.position, gameObject.transform.rotation);
+            isDie = false;
+            GetComponent<NavMeshAgent>().enabled = false;
+            pathfinder.enabled = false;
+            hp = hpmax;
+            GameManager.GetInstance().m_cPlayer.exp = GameManager.GetInstance().m_cPlayer.exp + exp;
+            RespawnMonster();
+            
+            //   Instantiate(Bone, gameObject.transform.position, gameObject.transform.rotation);
         }
     }
 
@@ -104,7 +146,7 @@ public class Monster : MonoBehaviour {
             {
                 Vector3 dirToTarget = (target.position - transform.position).normalized;
                 Vector3 targetPosition = target.position - dirToTarget * (myCollisionRadius + targetCollisionRadius + attackDistanceThreshold / 2);
-                if (hp >= 0)
+                if (hp >= 0&& isDie ==false)
                 {
                     pathfinder.SetDestination(targetPosition);
                 }
@@ -113,4 +155,13 @@ public class Monster : MonoBehaviour {
             yield return new WaitForSeconds(refreshRate);
         }
     }
+
+    void RespawnMonster()
+    {
+        transform.position = DeathPos.transform.position;
+
+        RespawnDone = 1;
+
+    }
+
 }

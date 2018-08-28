@@ -5,14 +5,17 @@ public class Projectile : MonoBehaviour
 {
 
    public float speed = 1;
-    float bulletdmg = 30;
+    float bulletdmg;
 
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
         Destroy(gameObject, 3);
     }
-
+    void Start()
+    {
+        bulletdmg = GameManager.GetInstance().m_cPlayer.atk;
+    }
     void Update()
     {
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
