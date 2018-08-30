@@ -18,8 +18,6 @@ public class Monster : MonoBehaviour {
     public float atk = 30;
     public int exp = 50;
 
-
-    public GameObject Bone;
     NavMeshAgent pathfinder;
     Transform target;
 
@@ -55,7 +53,7 @@ public class Monster : MonoBehaviour {
 
     void Update()
     {
-        if (Time.time > nextAttackTime)
+        if (Time.time > nextAttackTime && isDie==false)
         {
             float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
             if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2))
@@ -96,7 +94,6 @@ public class Monster : MonoBehaviour {
         {
             isDie = false;
             GetComponent<NavMeshAgent>().enabled = false;
-            pathfinder.enabled = false;
             hp = hpmax;
             GameManager.GetInstance().m_cPlayer.exp = GameManager.GetInstance().m_cPlayer.exp + exp;
             RespawnMonster();
@@ -133,7 +130,6 @@ public class Monster : MonoBehaviour {
 
         skinMaterial.color = originalColour;
         currentState = State.Chasing;
-        pathfinder.enabled = true;
     }
 
     IEnumerator UpdatePath()

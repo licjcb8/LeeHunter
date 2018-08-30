@@ -65,13 +65,13 @@
     <Compile Include="Assets\Scrpits\GUI\GUIManager.cs" />
     <Compile Include="Assets\Scrpits\Gun.cs" />
     <Compile Include="Assets\Scrpits\GunController.cs" />
+    <Compile Include="Assets\Scrpits\ItemBox.cs" />
+    <Compile Include="Assets\Scrpits\ItemManager.cs" />
     <Compile Include="Assets\Scrpits\Monster.cs" />
+    <Compile Include="Assets\Scrpits\MonsterSpawn.cs" />
     <Compile Include="Assets\Scrpits\Player.cs" />
     <Compile Include="Assets\Scrpits\PlayerController.cs" />
     <Compile Include="Assets\Scrpits\Projectile.cs" />
-    <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/licjc/Documents/GitHub/LeeHunter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/licjc/Documents/GitHub/LeeHunter/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
@@ -80,6 +80,9 @@
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/licjc/Documents/GitHub/LeeHunter/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.StandardEvents">
+      <HintPath>C:/Users/licjc/Documents/GitHub/LeeHunter/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
