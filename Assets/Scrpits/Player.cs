@@ -175,6 +175,10 @@ public class Player : MonoBehaviour
 
         }
         Dead();
+        if (exp == 100)
+        {
+            LVUP();
+        }
     }
 
     void Dead()
