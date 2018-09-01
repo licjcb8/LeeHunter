@@ -36,13 +36,13 @@ public class GUIPanel : MonoBehaviour
     }
 
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(0, 40, 100, 20), "GUIPanel"))
-        {
-            Set(ItemManager.eItem.ShortSword);
-        }
-    }
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(0, 40, 100, 20), "GUIPanel"))
+    //    {
+    //        Set(ItemManager.eItem.ShortSword);
+    //    }
+    //}
     void Start()
     {
 

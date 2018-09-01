@@ -39,7 +39,7 @@ public class GUIManager : MonoBehaviour {
                 break;
             case eSceneStatus.INVENTORY:
                 GUIInventory inventory = m_listScene[(int)eSceneStatus.INVENTORY].GetComponent<GUIInventory>();
-                inventory.SetInventory(GameManager.GetInstance().m_cPlayer);
+                inventory.  SetInventory(GameManager.GetInstance().m_cPlayer);
                 break;
             case eSceneStatus.BAG:
                 GUIBag bag = m_listScene[(int)eSceneStatus.BAG].GetComponent<GUIBag>();

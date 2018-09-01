@@ -64,8 +64,8 @@ public class GUIItemList : MonoBehaviour
         RectTransform rectContext = m_objContext.GetComponent<RectTransform>();
         GridLayoutGroup grid = m_objContext.GetComponent<GridLayoutGroup>();
         int nSize = m_listItemList.Count;
-        int nContextHeight = (int)(grid.cellSize.y * nSize);
-        rectContext.sizeDelta = new Vector2(rectContext.sizeDelta.x, nContextHeight);
+       int nContextHeight = (int)(grid.cellSize.y * nSize);
+       rectContext.sizeDelta = new Vector2(rectContext.sizeDelta.x, nContextHeight);
     }
 
     private void OnGUI()
