@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class GameManager : MonoBehaviour {
     public Player m_cPlayer;
     static GameManager m_cInstance;
     public ItemManager m_cItemManager;
+    public GUIManager m_cGUIManager;
     public GUIManager.eSceneStatus m_eSceneStatus;
+    
+
     static public GameManager GetInstance()
     {
         return m_cInstance;
@@ -15,14 +18,14 @@ public class GameManager : MonoBehaviour {
     void Start()
     {
         m_cInstance = this;
-       // m_cGUIManager.SetStatus(m_eSceneStatus);
+        m_cGUIManager.SetStatus(m_eSceneStatus);
 
     }
 
     public void EventStart()
     {
 
-      //  m_cGUIManager.SetStatus(GUIManager.eSceneStatus.PLAY);
+        m_cGUIManager.SetStatus(GUIManager.eSceneStatus.PLAY);
     }
 
     public void EventExit()
@@ -32,7 +35,7 @@ public class GameManager : MonoBehaviour {
 
     public void EventTheEnd()
     {
-      //  m_cGUIManager.SetStatus(GUIManager.eSceneStatus.THEEND);
+     //   m_cGUIManager.SetStatus(GUIManager.eSceneStatus.THEEND);
     }
 
     public void EventGameOver()

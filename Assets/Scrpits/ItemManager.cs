@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Item
 {
+    public List<ItemManager.eIngredient> m_needBag = new List<ItemManager.eIngredient>();
     string strName;
     string strComment;
     string strCombination;
@@ -36,7 +37,6 @@ public class Item
 
 public class Ingredient
 {
-    public List<ItemManager.eIngredient> m_needBag = new List<ItemManager.eIngredient>();
     string strName;
     string strComment;
     string strImage;
@@ -72,7 +72,8 @@ public class ItemManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Initialize();
-	}
+        Setneedbag();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -99,22 +100,22 @@ public class ItemManager : MonoBehaviour {
     {
         return m_listIngredient[(int)ingredient];
     }
-    //public void Setneedbag()
-    //{
-    //    m_listItems[0].m_needBag.Add(eIngredient.Slime);
-    //    m_listItems[0].m_needBag.Add(eIngredient.Slime);
-    //    m_listItems[1].m_needBag.Add(eIngredient.Slime);
-    //    m_listItems[1].m_needBag.Add(eIngredient.Slime);
-    //    m_listItems[1].m_needBag.Add(eIngredient.Skeleton);
-    //    m_listItems[2].m_needBag.Add(eIngredient.Slime);
-    //    m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
-    //    m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
-    //}
-    private void OnGUI()
+    public void Setneedbag()
     {
-        for (int i = 0; i < m_listItems.Count; i++)
-        {
-            GUI.Box(new Rect(Screen.width - 100, 20 * i, 100, 20), m_listItems[i].Name);
-        }
+        m_listItems[0].m_needBag.Add(eIngredient.Slime);
+        m_listItems[0].m_needBag.Add(eIngredient.Slime);
+        m_listItems[1].m_needBag.Add(eIngredient.Slime);
+        m_listItems[1].m_needBag.Add(eIngredient.Slime);
+        m_listItems[1].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[2].m_needBag.Add(eIngredient.Slime);
+        m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
     }
+    //private void OnGUI()
+    //{
+    //    for (int i = 0; i < m_listItems.Count; i++)
+    //    {
+    //        GUI.Box(new Rect(Screen.width - 100, 20 * i, 100, 20), m_listItems[i].Name);
+    //    }
+    //}
 }

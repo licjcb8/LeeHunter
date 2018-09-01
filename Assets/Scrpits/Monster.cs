@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Monster : MonoBehaviour {
     public ItemBox itembox;
     public GameObject IngredientPrefab;
+    public GameObject DeathEffect;
     public bool isDie = false;
     public enum State { Idle, Chasing, Attacking };
     State currentState;
@@ -37,6 +38,10 @@ public class Monster : MonoBehaviour {
     public float Respawn = 3.0f;
     public int RespawnDone = 0;
 
+    public float m_fMinDist = 2;
+    public float m_fDist = 0;
+
+
     void Start()
     {
         pathfinder = GetComponent<NavMeshAgent>();
@@ -53,7 +58,7 @@ public class Monster : MonoBehaviour {
 
     void Update()
     {
-        if (Time.time > nextAttackTime && isDie==false)
+        if (Time.time > nextAttackTime)
         {
             float sqrDstToTarget = (target.position - transform.position).sqrMagnitude;
             if (sqrDstToTarget < Mathf.Pow(attackDistanceThreshold + myCollisionRadius + targetCollisionRadius, 2))
@@ -73,7 +78,7 @@ public class Monster : MonoBehaviour {
             RespawnDone = 0;
             accumulator = 0.0f;
             GetComponent<NavMeshAgent>().enabled = true;
-            pathfinder.enabled = true;
+          
 
         }
         if (hp <= 0)
@@ -82,7 +87,8 @@ public class Monster : MonoBehaviour {
             itembox.GiveItem(GameManager.GetInstance().m_cPlayer);
             if (itembox.Drop)
             {
-                Instantiate(IngredientPrefab);
+                Instantiate(IngredientPrefab,transform.position,transform.rotation);
+                Instantiate(DeathEffect, transform.position, transform.rotation);
             }
         }
         Dead();
@@ -90,7 +96,7 @@ public class Monster : MonoBehaviour {
 
     void Dead()
     {
-        if (isDie)
+        if (isDie==true)
         {
             isDie = false;
             GetComponent<NavMeshAgent>().enabled = false;
@@ -104,8 +110,8 @@ public class Monster : MonoBehaviour {
 
     IEnumerator Attack()
     {
-
-
+        if (GetComponent<NavMeshAgent>().enabled==true)
+        { 
         currentState = State.Attacking;
         pathfinder.enabled = false;
 
@@ -130,25 +136,37 @@ public class Monster : MonoBehaviour {
 
         skinMaterial.color = originalColour;
         currentState = State.Chasing;
+        pathfinder.enabled = true;
+        }
     }
+
 
     IEnumerator UpdatePath()
     {
-        float refreshRate = .25f;
-
-        while (target != null)
+        if (GetComponent<NavMeshAgent>().enabled == true)
         {
-            if (currentState == State.Chasing)
+            float refreshRate = .25f;
+
+            while (target != null)
             {
-                Vector3 dirToTarget = (target.position - transform.position).normalized;
-                Vector3 targetPosition = target.position - dirToTarget * (myCollisionRadius + targetCollisionRadius + attackDistanceThreshold / 2);
-                if (hp >= 0&& isDie ==false)
+                if (currentState == State.Chasing)
                 {
-                    pathfinder.SetDestination(targetPosition);
+
+                    //Vector3 dirToTarget = (target.position - transform.position).normalized;
+                    //Vector3 targetPosition = target.position - dirToTarget * (myCollisionRadius + targetCollisionRadius + attackDistanceThreshold / 2);
+                    //if (hp >= 0)
+                    //{
+                    //    pathfinder.SetDestination(targetPosition);
+                    //}
+                    Vector3 vTargetPos = target.position;
+                    Vector3 vPos = transform.position;
+                    m_fDist = Vector3.Distance(vTargetPos, vPos);
+                    if (m_fDist < m_fMinDist)
+                        pathfinder.SetDestination(vTargetPos);
                 }
+
+                yield return new WaitForSeconds(refreshRate);
             }
-            
-            yield return new WaitForSeconds(refreshRate);
         }
     }
 
@@ -159,5 +177,11 @@ public class Monster : MonoBehaviour {
         RespawnDone = 1;
 
     }
-
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Bullet")
+        {
+            m_fMinDist = 100;
+        }
+    }
 }
