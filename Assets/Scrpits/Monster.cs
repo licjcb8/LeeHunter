@@ -101,6 +101,7 @@ public class Monster : MonoBehaviour {
             isDie = false;
             GetComponent<NavMeshAgent>().enabled = false;
             hp = hpmax;
+            m_fMinDist = 2;
             GameManager.GetInstance().m_cPlayer.exp = GameManager.GetInstance().m_cPlayer.exp + exp;
             RespawnMonster();
             

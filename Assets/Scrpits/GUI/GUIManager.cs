@@ -11,6 +11,7 @@ public class GUIManager : MonoBehaviour {
 
     public GUIInventory m_guiInventory;
     public Player player;
+    public NPC npc;
 
     ItemManager.eIngredient ingredient;
     ItemManager.eItem item;
@@ -48,6 +49,12 @@ public class GUIManager : MonoBehaviour {
             case eSceneStatus.EQUIPMENT:
                 break;
             case eSceneStatus.COMBINATE:
+                GUIBag bag1 = m_listScene[(int)eSceneStatus.COMBINATE].GetComponent<GUIBag>();
+                bag1.SetBag(GameManager.GetInstance().m_cPlayer);
+                GUINPCBag bag2 = m_listScene[(int)eSceneStatus.COMBINATE].GetComponent<GUINPCBag>();
+                bag2.SetNPCBag(GameManager.GetInstance().m_cNPC);
+                GUINPCInventory NPCInventory2 = m_listScene[(int)eSceneStatus.COMBINATE].GetComponent<GUINPCInventory>();
+                NPCInventory2.SetInventory(GameManager.GetInstance().m_cNPC);
                 break;
         }
         ShowScene(status);
@@ -59,8 +66,11 @@ public class GUIManager : MonoBehaviour {
         switch (m_eCurrentStatus)
         {
             case eSceneStatus.TITLE:
+                Time.timeScale = 0f;
                 break;
             case eSceneStatus.PLAY:
+                Time.timeScale = 1f;
+
                 if (Input.GetKeyUp(KeyCode.I))
                 {
                     SetStatus(GUIManager.eSceneStatus.INVENTORY);
@@ -69,15 +79,23 @@ public class GUIManager : MonoBehaviour {
                 {
                     SetStatus(GUIManager.eSceneStatus.BAG);
                 }
+                else if (Input.GetKeyUp(KeyCode.P))
+                {
+                    SetStatus(GUIManager.eSceneStatus.COMBINATE);
+                }
                 break;
             case eSceneStatus.INVENTORY:
+                Time.timeScale = 0f;
+
                 if (Input.GetKeyUp(KeyCode.I)||Input.GetKeyUp(KeyCode.Escape))
                 {
                     SetStatus(GUIManager.eSceneStatus.PLAY);
                 }
                 break;
             case eSceneStatus.BAG:
-                if (Input.GetKeyUp(KeyCode.O))
+                Time.timeScale = 0f;
+
+                if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.Escape))
                 {
                     SetStatus(GUIManager.eSceneStatus.PLAY);
                 }
@@ -85,6 +103,12 @@ public class GUIManager : MonoBehaviour {
             case eSceneStatus.EQUIPMENT:
                 break;
             case eSceneStatus.COMBINATE:
+                Time.timeScale = 0f;
+
+                if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                }
                 break;
         }
     }
@@ -105,6 +129,25 @@ public class GUIManager : MonoBehaviour {
                 m_listScene[(int)e].SetActive(false);
         }
     }
+
+    public void InputItem()
+    {
+        ingredient = (ItemManager.eIngredient)GameManager.GetInstance().m_cItemManager.ingredientselect;
+        Ingredient cIngredient = GameManager.GetInstance().m_cItemManager.GetIngredient(ingredient);
+        npc.SetBag(ingredient);
+        player.DeleteBag(ingredient);
+        SetStatus(eSceneStatus.COMBINATE);
+    }
+
+    public void OutputItem()
+    {
+        ingredient = (ItemManager.eIngredient)GameManager.GetInstance().m_cItemManager.ingredientselect;
+        Ingredient cIngredient = GameManager.GetInstance().m_cItemManager.GetIngredient(ingredient);
+        npc.DeleteBag(ingredient);
+        player.SetIngredient(ingredient);
+        SetStatus(eSceneStatus.COMBINATE);
+    }
+
 
     void Start () {
 		

@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 public class GameManager : MonoBehaviour {
     public Player m_cPlayer;
+    public NPC m_cNPC;
     static GameManager m_cInstance;
     public ItemManager m_cItemManager;
     public GUIManager m_cGUIManager;
