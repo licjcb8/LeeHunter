@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GUIPanel : MonoBehaviour
 {
+    
     public Image m_cImage;
     public Text m_cText;
     // Use this for initialization
@@ -35,7 +36,7 @@ public class GUIPanel : MonoBehaviour
         GameManager.GetInstance().m_cItemManager.itemselect = (int)item;
     }
 
-
+  
     //private void OnGUI()
     //{
     //    if (GUI.Button(new Rect(0, 40, 100, 20), "GUIPanel"))
