@@ -1129,7 +1129,7 @@ MonoBehaviour:
   Selection: 0
   m_guiInventory: {fileID: 1902152846}
   player: {fileID: 864361024}
-  npc: {fileID: 0}
+  npc: {fileID: 742560868}
 --- !u!1 &195920926
 GameObject:
   m_ObjectHideFlags: 0
