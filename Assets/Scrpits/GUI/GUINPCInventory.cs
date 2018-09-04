@@ -50,6 +50,7 @@ public class GUINPCInventory : MonoBehaviour
             player.SetInventory(item);
             GameManager.GetInstance().m_cNPC.ReleaseItems();
         }
+        GameManager.GetInstance().m_cGUIManager.SetStatus(GUIManager.eSceneStatus.COMBINATE);
     }
 
 

@@ -13,6 +13,7 @@ public class Monster : MonoBehaviour {
 
     public Transform DeathPos;
     public Transform RespawnPos;
+    public Rigidbody monster;
 
     public float hp = 100;
     public float hpmax = 100;
@@ -100,6 +101,7 @@ public class Monster : MonoBehaviour {
         {
             isDie = false;
             GetComponent<NavMeshAgent>().enabled = false;
+            
             hp = hpmax;
             m_fMinDist = 2;
             GameManager.GetInstance().m_cPlayer.exp = GameManager.GetInstance().m_cPlayer.exp + exp;
@@ -174,7 +176,8 @@ public class Monster : MonoBehaviour {
     void RespawnMonster()
     {
         transform.position = DeathPos.transform.position;
-
+        monster.isKinematic = false;
+        monster.isKinematic = true;
         RespawnDone = 1;
 
     }

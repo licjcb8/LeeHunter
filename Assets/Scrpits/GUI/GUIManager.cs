@@ -10,6 +10,7 @@ public class GUIManager : MonoBehaviour {
     eSceneStatus m_eCurrentStatus;
 
     public GUIInventory m_guiInventory;
+    public GUIEquipment Guiequipment;
     public Player player;
     public NPC npc;
 
@@ -83,6 +84,10 @@ public class GUIManager : MonoBehaviour {
                 {
                     SetStatus(GUIManager.eSceneStatus.COMBINATE);
                 }
+                else if (Input.GetKeyUp(KeyCode.U))
+                {
+                    SetStatus(GUIManager.eSceneStatus.EQUIPMENT);
+                }
                 break;
             case eSceneStatus.INVENTORY:
                 Time.timeScale = 0f;
@@ -101,6 +106,12 @@ public class GUIManager : MonoBehaviour {
                 }
                 break;
             case eSceneStatus.EQUIPMENT:
+                Time.timeScale = 0f;
+
+                if (Input.GetKeyUp(KeyCode.U) || Input.GetKeyUp(KeyCode.Escape))
+                {
+                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                }
                 break;
             case eSceneStatus.COMBINATE:
                 Time.timeScale = 0f;
@@ -148,7 +159,32 @@ public class GUIManager : MonoBehaviour {
         SetStatus(eSceneStatus.COMBINATE);
     }
 
+    public void SetEquipmentButton()
+    {
+        item = (ItemManager.eItem)GameManager.GetInstance().m_cItemManager.itemselect;
+        Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
+        Color color;
 
+        if (cItem.fx == "atk")
+        {
+            Guiequipment.WeaponImg.sprite = Resources.Load<Sprite>("Tex/" + cItem.Image);
+            color = Guiequipment.WeaponImg.color;
+            color.a = 255f;
+            Guiequipment.WeaponImg.color = color;
+        }
+        if (cItem.fx == "armor")
+        {
+            Guiequipment.ArmorImg.sprite = Resources.Load<Sprite>("Tex/" + cItem.Image);
+        }
+        if (cItem.fx == "shoes")
+        {
+            Guiequipment.ShoesImg.sprite = Resources.Load<Sprite>("Tex/" + cItem.Image);
+        }
+        if (cItem.fx == "helmet")
+        {
+            Guiequipment.HelmetImg.sprite = Resources.Load<Sprite>("Tex/" + cItem.Image);
+        }
+    }
     void Start () {
 		
 	}

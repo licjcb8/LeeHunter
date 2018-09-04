@@ -238,10 +238,13 @@
     <Compile Include="Assets\Scrpits\GameManager.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIBag.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUICombination.cs" />
+    <Compile Include="Assets\Scrpits\GUI\GUIEquipment.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIInventory.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIItemButton.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIItemList.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIManager.cs" />
+    <Compile Include="Assets\Scrpits\GUI\GUINPCBag.cs" />
+    <Compile Include="Assets\Scrpits\GUI\GUINPCInventory.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIPanel.cs" />
     <Compile Include="Assets\Scrpits\Gun.cs" />
     <Compile Include="Assets\Scrpits\GunController.cs" />
@@ -250,6 +253,7 @@
     <Compile Include="Assets\Scrpits\ItemManager.cs" />
     <Compile Include="Assets\Scrpits\LookAt.cs" />
     <Compile Include="Assets\Scrpits\Monster.cs" />
+    <Compile Include="Assets\Scrpits\NPC.cs" />
     <Compile Include="Assets\Scrpits\Player.cs" />
     <Compile Include="Assets\Scrpits\PlayerController.cs" />
     <Compile Include="Assets\Scrpits\Projectile.cs" />

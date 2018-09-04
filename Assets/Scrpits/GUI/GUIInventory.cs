@@ -6,6 +6,7 @@ public class GUIInventory : MonoBehaviour
 {
     public GUIItemList m_cItemList;
     public GUIPanel m_cPanel;
+    
 
     public void SetInventory(Player player)
     {
@@ -20,6 +21,7 @@ public class GUIInventory : MonoBehaviour
         m_cPanel.Set(item);
     }
 
+ 
     // Use this for initialization
     void Start()
     {
