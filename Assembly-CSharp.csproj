@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scrpits\GameManager.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIBag.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUICombination.cs" />
+    <Compile Include="Assets\Scrpits\GUI\GUIEquipment.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIInventory.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIItemButton.cs" />
     <Compile Include="Assets\Scrpits\GUI\GUIItemList.cs" />
