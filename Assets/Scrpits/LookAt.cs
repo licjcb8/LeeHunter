@@ -10,6 +10,6 @@ public class LookAt : MonoBehaviour
     }
     void Update()
     {
-        transform.LookAt(GameObject.FindGameObjectWithTag("Wall").transform);
+        transform.LookAt(GameObject.FindGameObjectWithTag("Dummy").transform);
     }
 }
