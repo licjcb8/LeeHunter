@@ -63,8 +63,8 @@ public class Ingredient
 
 
 public class ItemManager : MonoBehaviour {
-    public enum eItem { NONE = -1, ShortSword, Shield, Bowgun, Potion, Setting }
-    public enum eIngredient { NONE = -1, Slime, Skeleton }
+    public enum eItem { NONE = -1, WoodBow, BoneBow, Bowgun,ElnfinBow ,DemonBow,DragonBow }
+    public enum eIngredient { NONE = -1, Slime, Skeleton,Wood,DemonHeart,DragonBall }
     public List<Item> m_listItems = new List<Item>();
     public List<Ingredient> m_listIngredient = new List<Ingredient>();
     public int itemselect;
@@ -81,13 +81,17 @@ public class ItemManager : MonoBehaviour {
 	}
     public void Initialize()
     {
-        m_listItems.Add(new Item("숏소드", "매우 허접한 숏소드, 공격력 +10", "슬라임액체x2", "ShortSword", 10, "atk"));
-        m_listItems.Add(new Item("쉴드", "매우 허접한 쉴드, 방어력 +10", "슬라임액체x2, 스켈레톤의 골반뼈x1", "Shield", 2, "def"));
-        m_listItems.Add(new Item("보우건", "매우 허접한 보우건, 공격럭 +10", "슬라임액체x1, 스켈레톤의 골반뼈x2", "Bowgun", 10, "atk"));
-        m_listItems.Add(new Item("포션", "빨간포션, 체력 +20", "없음", "Potion", 10, "hp"));
-        m_listItems.Add(new Item("없음", "없음", "없음", "Slime", 0, "etc"));
+        m_listItems.Add(new Item("나무활", "매우 허접한 활, 공격력 +10", "나무판자x2", "WoodBow", 10, "atk"));
+        m_listItems.Add(new Item("본보우", "스켈레톤의 뼈로 만든 활, 공격력 +15", "나무판자x1, 스켈레톤의 골반뼈x2", "BoneBow", 15, "atk"));
+        m_listItems.Add(new Item("보우건", "매우 허접한 보우건, 공격럭 +20", "슬라임액체x1, 스켈레톤의 골반뼈x2", "Bowgun", 20, "atk"));
+        m_listItems.Add(new Item("엘프의활", "엘프들의 기운이 깃든 활, 공격력 +25", "나무판자x4, 슬라임액체x4", "ElfinBow", 25, "atk"));
+        m_listItems.Add(new Item("데몬보우", "악마의 활 그 자체", "스켈레톤의 골반뼈x2, 데몬하트x2", "DemonBow", 30, "atk"));
+        m_listItems.Add(new Item("드래곤보우", "드래곤의 힘이 깃들어 있다", "스켈레톤의 골반뼈x2, 데몬하트x2, 드래곤볼x2", "DragonBow", 35, "atk"));
         m_listIngredient.Add(new Ingredient("슬라임액체", "슬라임을 잡다보면 획득할 수 있다, 잡템", "Slime", 80));
         m_listIngredient.Add(new Ingredient("스켈레톤의 골반뼈", "스켈레톤의 부러진 골반뼈인 듯 하다, 잡템", "Skeleton", 80));
+        m_listIngredient.Add(new Ingredient("나무판자", "흔히 구할 수 있는 나무조각, 잡템", "Wood", 100));
+        m_listIngredient.Add(new Ingredient("데몬하트", "악마의 심장, 잡템", "DemonHeart", 60));
+        m_listIngredient.Add(new Ingredient("드래곤볼", "용의 정수, 잡템", "DragonBall", 40));
     }
 
 
@@ -102,14 +106,32 @@ public class ItemManager : MonoBehaviour {
     }
     public void Setneedbag()
     {
-        m_listItems[0].m_needBag.Add(eIngredient.Slime);
-        m_listItems[0].m_needBag.Add(eIngredient.Slime);
-        m_listItems[1].m_needBag.Add(eIngredient.Slime);
-        m_listItems[1].m_needBag.Add(eIngredient.Slime);
+        m_listItems[0].m_needBag.Add(eIngredient.Wood);
+        m_listItems[0].m_needBag.Add(eIngredient.Wood);
+        m_listItems[1].m_needBag.Add(eIngredient.Wood);
+        m_listItems[1].m_needBag.Add(eIngredient.Skeleton);
         m_listItems[1].m_needBag.Add(eIngredient.Skeleton);
         m_listItems[2].m_needBag.Add(eIngredient.Slime);
         m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
         m_listItems[2].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[3].m_needBag.Add(eIngredient.Wood);
+        m_listItems[3].m_needBag.Add(eIngredient.Wood);
+        m_listItems[3].m_needBag.Add(eIngredient.Wood);
+        m_listItems[3].m_needBag.Add(eIngredient.Wood);
+        m_listItems[3].m_needBag.Add(eIngredient.Slime);
+        m_listItems[3].m_needBag.Add(eIngredient.Slime);
+        m_listItems[3].m_needBag.Add(eIngredient.Slime);
+        m_listItems[3].m_needBag.Add(eIngredient.Slime);
+        m_listItems[4].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[4].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[4].m_needBag.Add(eIngredient.DemonHeart);
+        m_listItems[4].m_needBag.Add(eIngredient.DemonHeart);
+        m_listItems[5].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[5].m_needBag.Add(eIngredient.Skeleton);
+        m_listItems[5].m_needBag.Add(eIngredient.DemonHeart);
+        m_listItems[5].m_needBag.Add(eIngredient.DemonHeart);
+        m_listItems[5].m_needBag.Add(eIngredient.DragonBall);
+        m_listItems[5].m_needBag.Add(eIngredient.DragonBall);
     }
     //private void OnGUI()
     //{

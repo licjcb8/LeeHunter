@@ -11,10 +11,12 @@ public class NPC : MonoBehaviour
     // Use this for initialization
     public void SetIventory()
     {
-        m_listInventory.Add(ItemManager.eItem.ShortSword);
-        m_listInventory.Add(ItemManager.eItem.Shield);
+        m_listInventory.Add(ItemManager.eItem.WoodBow);
+        m_listInventory.Add(ItemManager.eItem.BoneBow);
         m_listInventory.Add(ItemManager.eItem.Bowgun);
-        m_listInventory.Add(ItemManager.eItem.Potion);
+        m_listInventory.Add(ItemManager.eItem.ElnfinBow);
+        m_listInventory.Add(ItemManager.eItem.DemonBow);
+        m_listInventory.Add(ItemManager.eItem.DragonBow);
     }
 
     public void SetBag(ItemManager.eIngredient ingredient)

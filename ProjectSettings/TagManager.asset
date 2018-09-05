@@ -8,6 +8,7 @@ TagManager:
   - Monster
   - Item
   - Bullet
+  - Dummy
   layers:
   - Default
   - TransparentFX
