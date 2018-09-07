@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class GUIManager : MonoBehaviour {
     public List<GameObject> m_listScene;
     public int Selection = 0;
-    public enum eSceneStatus { TITLE, PLAY, INVENTORY, BAG,EQUIPMENT,COMBINATE, MAX };
+    public bool Tutorial = true;
+    public enum eSceneStatus { TITLE,TUTORIAL, PLAY, INVENTORY, BAG,EQUIPMENT,COMBINATE, MAX };
     eSceneStatus m_eCurrentStatus;
 
     public GUIInventory m_guiInventory;
@@ -36,6 +37,8 @@ public class GUIManager : MonoBehaviour {
         switch (status)
         {
             case eSceneStatus.TITLE:
+                break;
+            case eSceneStatus.TUTORIAL:
                 break;
             case eSceneStatus.PLAY:
                 break;
@@ -69,6 +72,26 @@ public class GUIManager : MonoBehaviour {
             case eSceneStatus.TITLE:
                 Time.timeScale = 0f;
                 break;
+            case eSceneStatus.TUTORIAL:
+                Time.timeScale = 1f;
+
+                if (Input.GetKeyUp(KeyCode.I))
+                {
+                    SetStatus(GUIManager.eSceneStatus.INVENTORY);
+                }
+                else if (Input.GetKeyUp(KeyCode.O))
+                {
+                    SetStatus(GUIManager.eSceneStatus.BAG);
+                }
+                else if (Input.GetKeyUp(KeyCode.P))
+                {
+                    SetStatus(GUIManager.eSceneStatus.COMBINATE);
+                }
+                else if (Input.GetKeyUp(KeyCode.U))
+                {
+                    SetStatus(GUIManager.eSceneStatus.EQUIPMENT);
+                }
+                break;
             case eSceneStatus.PLAY:
                 Time.timeScale = 1f;
 
@@ -91,34 +114,72 @@ public class GUIManager : MonoBehaviour {
                 break;
             case eSceneStatus.INVENTORY:
                 Time.timeScale = 0f;
-
-                if (Input.GetKeyUp(KeyCode.I)||Input.GetKeyUp(KeyCode.Escape))
+                if (Tutorial == false)
                 {
-                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                    if (Input.GetKeyUp(KeyCode.I) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.PLAY);
+                    }
+                }
+                if (Tutorial == true)
+                {
+                    if (Input.GetKeyUp(KeyCode.I) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.TUTORIAL);
+                    }
                 }
                 break;
             case eSceneStatus.BAG:
                 Time.timeScale = 0f;
-
-                if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.Escape))
+                if (Tutorial == false)
+                { 
+                    if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.PLAY);
+                    }
+                }
+                if (Tutorial == true)
                 {
-                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                    if (Input.GetKeyUp(KeyCode.O) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.TUTORIAL);
+                    }
                 }
                 break;
             case eSceneStatus.EQUIPMENT:
                 Time.timeScale = 0f;
 
-                if (Input.GetKeyUp(KeyCode.U) || Input.GetKeyUp(KeyCode.Escape))
+                if (Tutorial == false)
                 {
-                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                    if (Input.GetKeyUp(KeyCode.U) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.PLAY);
+                    }
+                }
+                if (Tutorial == true)
+                {
+                    if (Input.GetKeyUp(KeyCode.U) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.TUTORIAL);
+                    }
                 }
                 break;
             case eSceneStatus.COMBINATE:
                 Time.timeScale = 0f;
 
-                if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.Escape))
+                if (Tutorial == false)
                 {
-                    SetStatus(GUIManager.eSceneStatus.PLAY);
+                    if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.PLAY);
+                    }
+                }
+                if (Tutorial == true)
+                {
+                    if (Input.GetKeyUp(KeyCode.P) || Input.GetKeyUp(KeyCode.Escape))
+                    {
+                        SetStatus(GUIManager.eSceneStatus.TUTORIAL);
+                    }
                 }
                 break;
         }

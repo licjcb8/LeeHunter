@@ -28,12 +28,16 @@ public class Projectile : MonoBehaviour
         {
             //Rigidbody rigidbodyTarget = other.gameObject.GetComponent<Rigidbody>();
             other.gameObject.GetComponent<Monster>().hp = other.gameObject.GetComponent<Monster>().hp - bulletdmg;
-         //   other.gameObject.GetComponent<Monster>().hit = 1;
+            //   other.gameObject.GetComponent<Monster>().hit = 1;
             //rigidbodyTarget.AddForce(transform. * (speed - 500));
             Destroy(gameObject);
 
         }
         else if (other.gameObject.tag == "Wall")
+        {
+            Destroy(gameObject);
+        }
+        else if (other.gameObject.tag == "Box")
         {
             Destroy(gameObject);
         }

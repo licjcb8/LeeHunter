@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
     public void EventStart()
     {
 
-        m_cGUIManager.SetStatus(GUIManager.eSceneStatus.PLAY);
+        m_cGUIManager.SetStatus(GUIManager.eSceneStatus.TUTORIAL);
     }
 
     public void EventExit()

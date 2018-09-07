@@ -38,12 +38,14 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5;
     PlayerController controller;
     GunController gunController;
+    public AudioClip[] Sound;
 
     public enum eStatus { NONE = -1, DMG, DEF, HP, EXP, LV }
     public float atk = 20;
     public float def = 2;
     public float hpmax = 100;
     public float hp = 100;
+    public int expMax = 100;
     public int exp = 0;
     public int lv = 1;
     public float dmg;
@@ -159,6 +161,7 @@ public class Player : MonoBehaviour
     {
         controller = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();
+        
     }
 
 
@@ -170,14 +173,15 @@ public class Player : MonoBehaviour
         controller.Move(moveVelocity);
         if (Input.GetMouseButton(0))
         {
-
+        
             gunController.Shoot();
 
         }
         Dead();
-        if (exp == 100)
+        if (exp >= expMax)
         {
             LVUP();
+            SoundPlay(0);
         }
     }
 
@@ -197,8 +201,16 @@ public class Player : MonoBehaviour
         atk = atk + 10;
         def = def + 2;
         hpmax = hpmax + 50;
+        expMax = expMax + 50;
         hp = hpmax;
     }
+
+    public void SoundPlay(int Num)
+    {
+        GetComponent<AudioSource>().clip = Sound[Num];
+        GetComponent<AudioSource>().Play();
+    }
+
 
     void OnCollisionEnter(Collision collision)
     {
@@ -215,6 +227,7 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Item")
         {
             Destroy(collision.gameObject);
+            SoundPlay(1);
         }
 
     }

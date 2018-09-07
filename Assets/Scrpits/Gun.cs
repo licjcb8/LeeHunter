@@ -8,12 +8,11 @@ public class Gun : MonoBehaviour {
 
     Camera viewCamera;
     GunController controller;
-
+    public AudioClip Sound;
     public Transform muzzle;
     public Projectile projectile;
     public float msBetweenShots = 100;
     public float muzzleVelocity = 35;
-
     float nextShotTime;
 
 
@@ -37,12 +36,21 @@ public class Gun : MonoBehaviour {
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
             controller.LookAt(point);
         }
+       
     }
+
+    public void SoundPlay()
+    {
+        GetComponent<AudioSource>().clip = Sound;
+        GetComponent<AudioSource>().Play();
+    }
+
     public void Shoot()
     {
 
         if (Time.time > nextShotTime)
         {
+            SoundPlay();
             nextShotTime = Time.time + msBetweenShots / 1000;
             Projectile newProjectile = Instantiate(projectile, muzzle.position, muzzle.rotation) as Projectile;
             newProjectile.SetSpeed(muzzleVelocity);
