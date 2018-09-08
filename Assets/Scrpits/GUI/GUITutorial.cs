@@ -9,6 +9,9 @@ public class GUITutorial : MonoBehaviour {
     public GameObject Tutorial3;
     public GameObject Tutorial4;
     public GameObject Tutorial5;
+    public GameObject Tutorial6;
+    public GameObject Tutorial7;
+    public GameObject Tutorial8;
     // Use this for initialization
     void Start () {
 		
@@ -39,14 +42,30 @@ public class GUITutorial : MonoBehaviour {
             Tutorial3.SetActive(false);
             Tutorial4.SetActive(true);
         }
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            TutorialStatus = 4;
-        }
         if (TutorialStatus == 4)
         {
             Tutorial4.SetActive(false);
             Tutorial5.SetActive(true);
+        }
+        if (TutorialStatus == 5)
+        {
+            Tutorial5.SetActive(false);
+            Tutorial6.SetActive(true);
+        }
+        if (TutorialStatus == 6)
+        {
+            Tutorial6.SetActive(false);
+            Tutorial7.SetActive(true);
+        }
+        if (TutorialStatus == 7)
+        {
+            Tutorial7.SetActive(false);
+            Tutorial8.SetActive(true);
+        }
+        if (TutorialStatus == 8)
+        {
+            Tutorial8.SetActive(false);
+            GameManager.GetInstance().m_cGUIManager.SetStatus(GUIManager.eSceneStatus.PLAY);
         }
     }
 }

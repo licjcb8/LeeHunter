@@ -6,7 +6,7 @@ public class GunController : MonoBehaviour {
     public Transform weaponHold;
     public Gun startingGun;
     Gun equippedGun;
-
+   
     // Use this for initialization
     void Start () {
         if (startingGun != null)
@@ -27,7 +27,11 @@ public class GunController : MonoBehaviour {
     {
         if (equippedGun != null)
         {
-            equippedGun.Shoot();
+            
+      
+                equippedGun.Shoot();
+        
+
         }
     }
 

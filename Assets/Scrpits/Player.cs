@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     PlayerController controller;
     GunController gunController;
     public AudioClip[] Sound;
+    public float accumulator = 0.0f;
 
     public enum eStatus { NONE = -1, DMG, DEF, HP, EXP, LV }
     public float atk = 20;
@@ -173,18 +174,28 @@ public class Player : MonoBehaviour
         controller.Move(moveVelocity);
         if (Input.GetMouseButton(0))
         {
+            animator.SetBool("Hit", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("LeftIdle", false);
             if (LeftRight == 1)
             {
                 animator.SetTrigger("LeftAttack");
-                animator.SetBool("Idle", false);
             }
             if (LeftRight == 0)
             {
                 animator.SetTrigger("RightAttack");
-                animator.SetBool("Idle", false);
+                
             }
-            gunController.Shoot();
-
+            accumulator += Time.deltaTime;
+            if (accumulator >= 1.0f)
+            {
+                gunController.Shoot();
+                accumulator = 0;
+            }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            accumulator = 0;
         }
         Dead();
         if (exp >= expMax)
@@ -192,19 +203,36 @@ public class Player : MonoBehaviour
             LVUP();
             SoundPlay(0);
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             LeftRight = 1;
+            animator.SetBool("Hit", false);
+            animator.SetBool("RightMove", false);
             animator.SetBool("LeftMove",true);
             animator.SetBool("Idle", false);
+            animator.SetBool("LeftIdle", false);
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            LeftRight = 0;
+            animator.SetBool("Hit", false);
+            animator.SetBool("LeftMove", false);
+            animator.SetBool("RightMove", true);
+            animator.SetBool("Idle", false);
+            animator.SetBool("LeftIdle", false);
         }
         if (Input.GetKeyUp(KeyCode.D))
         {
-            LeftRight = 0;
-            animator.SetBool("RightMove",true);
-            animator.SetBool("Idle", false);
+            animator.SetBool("RightMove", false);
+            animator.SetBool("LeftIdle", false);
+            animator.SetBool("Idle", true);
         }
-        animator.SetBool("Idle",true);
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            animator.SetBool("LeftMove", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("LeftIdle", true);
+        }
     }
 
     void Dead()
@@ -239,6 +267,7 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.tag == "Monster")
         {
+            animator.SetBool("Hit", true);
             dmg = collision.gameObject.GetComponent<Monster>().atk;
             if (dmg <= 0)
             {
