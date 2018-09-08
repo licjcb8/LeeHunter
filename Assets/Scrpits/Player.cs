@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 
     ItemManager.eItem item;
 
-
+    public Animator animator;
     public float moveSpeed = 5;
     PlayerController controller;
     GunController gunController;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
     public int exp = 0;
     public int lv = 1;
     public float dmg;
-
+    public int LeftRight = 0; //0=Right 1=Left
     public int itemselect;
 
     public void Initialize()
@@ -173,7 +173,16 @@ public class Player : MonoBehaviour
         controller.Move(moveVelocity);
         if (Input.GetMouseButton(0))
         {
-        
+            if (LeftRight == 1)
+            {
+                animator.SetTrigger("LeftAttack");
+                animator.SetBool("Idle", false);
+            }
+            if (LeftRight == 0)
+            {
+                animator.SetTrigger("RightAttack");
+                animator.SetBool("Idle", false);
+            }
             gunController.Shoot();
 
         }
@@ -183,13 +192,27 @@ public class Player : MonoBehaviour
             LVUP();
             SoundPlay(0);
         }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            LeftRight = 1;
+            animator.SetBool("LeftMove",true);
+            animator.SetBool("Idle", false);
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            LeftRight = 0;
+            animator.SetBool("RightMove",true);
+            animator.SetBool("Idle", false);
+        }
+        animator.SetBool("Idle",true);
     }
 
     void Dead()
     {
         if (hp <= 0)
         {
-            Destroy(gameObject);
+            animator.SetBool("Dead", true);
+         //   Destroy(gameObject);
         }
     }
 

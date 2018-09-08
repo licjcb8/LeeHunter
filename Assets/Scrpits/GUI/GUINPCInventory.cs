@@ -10,6 +10,7 @@ public class GUINPCInventory : MonoBehaviour
     public GUIItemList m_cItemList;
     public GUIPanel m_cPanel;
     public Player player;
+   
 
     ItemManager.eItem item;
     ItemManager.eIngredient ingredient;
@@ -42,13 +43,20 @@ public class GUINPCInventory : MonoBehaviour
     {
         item = (ItemManager.eItem)GameManager.GetInstance().m_cItemManager.itemselect;
         Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
-
-        var firstNotSecond = GameManager.GetInstance().m_cItemManager.GetItem(item).m_needBag.Except(GameManager.GetInstance().m_cNPC.m_listBag).ToList();
-        var secondNotFirst = GameManager.GetInstance().m_cNPC.m_listBag.Except(GameManager.GetInstance().m_cItemManager.GetItem(item).m_needBag).ToList();
-        if (!firstNotSecond.Any() && !secondNotFirst.Any())
+        Debug.Log("ItemSelect");
+        if (GameManager.GetInstance().m_cNPC.GetBagSize() != 0)
         {
-            player.SetInventory(item);
-            GameManager.GetInstance().m_cNPC.ReleaseItems();
+            var firstNotSecond = GameManager.GetInstance().m_cItemManager.GetItem(item).m_needBag.Except(GameManager.GetInstance().m_cNPC.m_listBag).ToList();
+            var secondNotFirst = GameManager.GetInstance().m_cNPC.m_listBag.Except(GameManager.GetInstance().m_cItemManager.GetItem(item).m_needBag).ToList();
+
+            if (!firstNotSecond.Any() && !secondNotFirst.Any())
+            {
+                Debug.Log("Ok to combinate");
+                player.SetInventory(item);
+                Debug.Log("ItemGet");
+                GameManager.GetInstance().m_cNPC.ReleaseItems();
+                Debug.Log("Ingredient removed");
+            }
         }
         GameManager.GetInstance().m_cGUIManager.SetStatus(GUIManager.eSceneStatus.COMBINATE);
     }
