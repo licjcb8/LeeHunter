@@ -17,6 +17,6 @@ public class DEF : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DEFText.text = "DEF : " + player.def;
+        DEFText.text = "DEF : " + player.deftotal;
     }
 }

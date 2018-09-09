@@ -28,7 +28,7 @@ public class CharacterStatus
 public class Player : MonoBehaviour
 {
     List<ItemManager.eItem> m_listInventory = new List<ItemManager.eItem>();
-    List<ItemManager.eItem> m_listEquipment = new List<ItemManager.eItem>();
+    //List<ItemManager.eItem> m_listEquipment = new List<ItemManager.eItem>();
     public List<ItemManager.eIngredient> m_listIngredient = new List<ItemManager.eIngredient>();
     List<CharacterStatus> m_listStatus = new List<CharacterStatus>();
 
@@ -46,10 +46,16 @@ public class Player : MonoBehaviour
     public float def = 2;
     public float hpmax = 100;
     public float hp = 100;
+    public float weaponatk;
+    public float helmetdef;
+    public float armordef;
+    public float shoesdef;
     public int expMax = 100;
     public int exp = 0;
     public int lv = 1;
     public float dmg;
+    public float deftotal;
+    public float monsterdmg;
     public int LeftRight = 0; //0=Right 1=Left
     public int itemselect;
 
@@ -77,31 +83,31 @@ public class Player : MonoBehaviour
         m_listIngredient.Add(ingredient);
     }
 
-    public void SetEquip()
-    {
+    //public void SetEquip()
+    //{
 
-        ItemManager.eItem item = (ItemManager.eItem)itemselect;
+    //    ItemManager.eItem item = (ItemManager.eItem)itemselect;
 
-        Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
-        itemselect = (int)item;
-        m_listEquipment.Add(item);
-    }
-    public void SetEquipment()
-    {
-        item = (ItemManager.eItem)GameManager.GetInstance().m_cItemManager.itemselect;
+    //    Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
+    //    itemselect = (int)item;
+    //    m_listEquipment.Add(item);
+    //}
+    //public void SetEquipment()
+    //{
+    //    item = (ItemManager.eItem)GameManager.GetInstance().m_cItemManager.itemselect;
 
-        Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
+    //    Item cItem = GameManager.GetInstance().m_cItemManager.GetItem(item);
 
-        if (cItem.fx == "atk")
-        {
-            atk = atk + cItem.stat;
-        }
+    //    if (cItem.fx == "atk")
+    //    {
+    //        atk = atk + cItem.stat;
+    //    }
 
-        else if (cItem.fx == "def")
-        {
-            def = def + cItem.stat;
-        }
-    }
+    //    else if (cItem.fx == "def")
+    //    {
+    //        def = def + cItem.stat;
+    //    }
+    //}
     public ItemManager.eItem GetInventory(ItemManager.eItem item)
     {
         return m_listInventory.Find(obj => obj.Equals(item));
@@ -111,10 +117,10 @@ public class Player : MonoBehaviour
     {
         return m_listIngredient.Find(obj => obj.Equals(ingredient));
     }
-    public ItemManager.eItem GetEquip(ItemManager.eItem item)
-    {
-        return m_listEquipment.Find(obj => obj.Equals(item));
-    }
+    //public ItemManager.eItem GetEquip(ItemManager.eItem item)
+    //{
+    //    return m_listEquipment.Find(obj => obj.Equals(item));
+    //}
 
     public ItemManager.eItem GetInventory(int idx)
     {
@@ -124,10 +130,10 @@ public class Player : MonoBehaviour
     {
         return m_listIngredient[idx];
     }
-    public ItemManager.eItem GetEquip(int idx)
-    {
-        return m_listEquipment[idx];
-    }
+    //public ItemManager.eItem GetEquip(int idx)
+    //{
+    //    return m_listEquipment[idx];
+    //}
 
     public void DeleteInventory(ItemManager.eItem item)
     {
@@ -139,10 +145,10 @@ public class Player : MonoBehaviour
         m_listIngredient.Remove(ingredient);
     }
 
-    public void DeleteEquip(ItemManager.eItem item)
-    {
-        m_listEquipment.Remove(item);
-    }
+    //public void DeleteEquip(ItemManager.eItem item)
+    //{
+    //    m_listEquipment.Remove(item);
+    //}
     public int GetInventorySize()
     {
         return m_listInventory.Count;
@@ -152,10 +158,10 @@ public class Player : MonoBehaviour
     {
         return m_listIngredient.Count;
     }
-    public int GetEquipSize()
-    {
-        return m_listEquipment.Count;
-    }
+    //public int GetEquipSize()
+    //{
+    //    return m_listEquipment.Count;
+    //}
 
 
     void Start()
@@ -169,33 +175,37 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        StatusSetting();
         Vector3 moveInput = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 moveVelocity = moveInput.normalized * moveSpeed;
         controller.Move(moveVelocity);
-        if (Input.GetMouseButton(0))
+        if (GameManager.GetInstance().m_cGUIManager.Play == true||GameManager.GetInstance().m_cGUIManager.Tutorial==true)
         {
-            animator.SetBool("Hit", false);
-            animator.SetBool("Idle", false);
-            animator.SetBool("LeftIdle", false);
-            if (LeftRight == 1)
+            if (Input.GetMouseButton(0))
             {
-                animator.SetTrigger("LeftAttack");
+                animator.SetBool("Hit", false);
+                animator.SetBool("Idle", false);
+                animator.SetBool("LeftIdle", false);
+                if (LeftRight == 1)
+                {
+                    animator.SetTrigger("LeftAttack");
+                }
+                if (LeftRight == 0)
+                {
+                    animator.SetTrigger("RightAttack");
+
+                }
+                accumulator += Time.deltaTime;
+                if (accumulator >= 1.0f)
+                {
+                    gunController.Shoot();
+                    accumulator = 0;
+                }
             }
-            if (LeftRight == 0)
+            if (Input.GetMouseButtonUp(0))
             {
-                animator.SetTrigger("RightAttack");
-                
-            }
-            accumulator += Time.deltaTime;
-            if (accumulator >= 1.0f)
-            {
-                gunController.Shoot();
                 accumulator = 0;
             }
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            accumulator = 0;
         }
         Dead();
         if (exp >= expMax)
@@ -240,7 +250,7 @@ public class Player : MonoBehaviour
         if (hp <= 0)
         {
             animator.SetBool("Dead", true);
-         //   Destroy(gameObject);
+         
         }
     }
 
@@ -255,7 +265,11 @@ public class Player : MonoBehaviour
         expMax = expMax + 50;
         hp = hpmax;
     }
-
+    public void StatusSetting()
+    {
+        dmg = atk + weaponatk;
+        deftotal = def + armordef + helmetdef + shoesdef;
+    }
     public void SoundPlay(int Num)
     {
         GetComponent<AudioSource>().clip = Sound[Num];
@@ -268,12 +282,12 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Monster")
         {
             animator.SetBool("Hit", true);
-            dmg = collision.gameObject.GetComponent<Monster>().atk;
-            if (dmg <= 0)
+            monsterdmg = ((collision.gameObject.GetComponent<Monster>().atk) - deftotal);
+            if (monsterdmg <= 0)
             {
-                dmg = 0;
+                monsterdmg = 0;
             }
-            hp = hp - dmg;
+            hp = hp - monsterdmg;
         }
 
         if (collision.collider.tag == "Item")

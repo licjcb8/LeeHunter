@@ -17,6 +17,13 @@ public class NPC : MonoBehaviour
         m_listInventory.Add(ItemManager.eItem.ElnfinBow);
         m_listInventory.Add(ItemManager.eItem.DemonBow);
         m_listInventory.Add(ItemManager.eItem.DragonBow);
+        m_listInventory.Add(ItemManager.eItem.WoodHelmet);
+        m_listInventory.Add(ItemManager.eItem.WoodArmor);
+        m_listInventory.Add(ItemManager.eItem.BoneHelmet);
+        m_listInventory.Add(ItemManager.eItem.BoneArmor);
+        m_listInventory.Add(ItemManager.eItem.DragonHelmet);
+        m_listInventory.Add(ItemManager.eItem.DragonArmor);
+        
     }
 
     public void SetBag(ItemManager.eIngredient ingredient)
@@ -61,11 +68,9 @@ public class NPC : MonoBehaviour
 
     public void ReleaseItems()
     {
-        for (int i = m_listBag.Count - 1; i >= 0; i--)
-        {
-            m_listBag.Remove(m_listBag[i]);
+        
             m_listBag.Clear();
-        }
+       
     }
 
     public int GetBagSize()
